@@ -3,52 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Quadratic Equation Discriminant Calculator</title>
 </head>
 <body>
 
-    <!-- The form submits to the same page using GET method -->
-    <form id="sumForm">
-
-        <!-- Input field for the first number -->
-        <p><input type="text" placeholder="Enter first number" id="num1"></p>
+    <!-- The form submits to the same page using POST method -->
+    <form method="post">
+        <!-- Input field for the coefficient a -->
+        <p><label for="a">Enter the value of a:</label><br>
+        <input type="text" id="a" name="a" required></p>
         
-        <!-- Input field for the second number -->
-        <p><input type="text" placeholder="Enter second number" id="num2"></p>
+        <!-- Input field for the coefficient b -->
+        <p><label for="b">Enter the value of b:</label><br>
+        <input type="text" id="b" name="b" required></p>
+        
+        <!-- Input field for the coefficient c -->
+        <p><label for="c">Enter the value of c:</label><br>
+        <input type="text" id="c" name="c" required></p>
 
         <!-- Submit button -->
-        <p><input type="button" value="Calculate Sum" onclick="calculateSum()"></p>
+        <p><input type="submit" name="submit" value="Calculate Discriminant"></p>
     </form>
 
     <!-- Result will be displayed here -->
-    <div id="result"></div>
-
-    <script>
-        function calculateSum() {
-            // Get the values of the input fields
-            var num1 = parseFloat(document.getElementById("num1").value);
-            var num2 = parseFloat(document.getElementById("num2").value);
+    <div id="discriminantResult">
+        <?php
+        // Check if form is submitted
+        if(isset($_POST['submit'])){
+            // Get the values of the coefficients
+            $a = isset($_POST['a']) ? $_POST['a'] : '';
+            $b = isset($_POST['b']) ? $_POST['b'] : '';
+            $c = isset($_POST['c']) ? $_POST['c'] : '';
             
-            // Check if both inputs are valid numbers
-            if (!isNaN(num1) && !isNaN(num2)) {
-                // Calculate the sum
-                var sum = num1 + num2;
+            // Check if all inputs are provided and valid numbers
+            if (is_numeric($a) && is_numeric($b) && is_numeric($c)) {
+                // Calculate the discriminant
+                $discriminant = $b * $b - 4 * $a * $c;
                 
-                // Clear input fields
-                document.getElementById("num1").value = "";
-                document.getElementById("num2").value = "";
-                
-                // Clear previous result
-                document.getElementById("result").innerHTML = "";
-                
-                // Display the result
-                document.getElementById("result").innerHTML = "<h2>The sum of " + num1 + " and " + num2 + " is " + sum + "</h2>";
+                // Display the discriminant
+                echo "<h2>The discriminant of the quadratic equation is: $discriminant</h2>";
             } else {
-                // Display error message if inputs are not valid numbers
-                document.getElementById("result").innerHTML = "<h2>Error: Both numbers must be numeric.</h2>";
+                // Display error message if any input is invalid
+                echo "<h2>Error: Please provide valid numeric coefficients for a, b, and c.</h2>";
             }
         }
-    </script>
+        ?>
+    </div>
 
 </body>
 </html>
