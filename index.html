@@ -34,6 +34,13 @@
                 // Calculate the sum
                 var sum = num1 + num2;
                 
+                // Clear input fields
+                document.getElementById("num1").value = "";
+                document.getElementById("num2").value = "";
+                
+                // Clear previous result
+                document.getElementById("result").innerHTML = "";
+                
                 // Display the result
                 document.getElementById("result").innerHTML = "<h2>The sum of " + num1 + " and " + num2 + " is " + sum + "</h2>";
             } else {
