@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- The form submits to the same page using GET method -->
+    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="GET">
+
+        <!-- Input field for the first number -->
+        <p><input type="text" placeholder="Enter first number" name="num1"></p>
+        
+        <!-- Input field for the second number -->
+        <p><input type="text" placeholder="Enter second number" name="num2"></p>
+
+        <!-- Submit button -->
+        <p><input type="submit" value="Calculate Sum" name="getSum"></p>
+    </form>
+
+    <?php  
+    // Check if the form is submitted
+    if(isset($_GET['getSum'])) {
+        
+        // Check if both numbers are provided
+        if(isset($_GET['num1']) && isset($_GET['num2'])) {
+            
+            // Retrieve and sanitize input
+            $num1 = htmlspecialchars($_GET['num1']);
+            $num2 = htmlspecialchars($_GET['num2']);
+
+            // Validate input (ensure they are numeric)
+            if(is_numeric($num1) && is_numeric($num2)) {
+                
+                // Perform the addition
+                $sum = $num1 + $num2;
+
+                // Display the result
+                echo "<h2>The sum of $num1 and $num2 is $sum</h2>";
+            } else {
+                // Display error if input is not numeric
+                echo "<h2>Error: Both numbers must be numeric.</h2>";
+            }
+        } else {
+            // Display error if both numbers are not provided
+            echo "<h2>Error: Please provide both numbers.</h2>";
+        }
+    }
+    ?>
+</body>
+</html>
